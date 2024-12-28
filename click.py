@@ -4,6 +4,8 @@ import threading
 import time
 import random
 
+pyautogui.PAUSE = 0  # PyAutoGUI의 기본 딜레이 제거
+
 # 화면 중앙에 창 위치 계산
 def center_window(window, width, height):
     screen_width = window.winfo_screenwidth()
@@ -20,15 +22,15 @@ def select_click_position():
     print(f"선택된 좌표: {position}")
     return position
 
-# 선택된 위치를 반복적으로 클릭 (1초에 5번, 랜덤 위치 포함)
-def run_macro(click_position, interval=0.2, stop_event=None):
+# 선택된 위치를 반복적으로 클릭 (1초에 100번, 랜덤 위치 포함)
+def run_macro(click_position, interval=0.01, stop_event=None):
     print("매크로 실행 중... 마우스를 화면 모서리로 이동하면 종료됩니다.")
     screen_width, screen_height = pyautogui.size()
 
     while not stop_event.is_set():
         # 랜덤 위치 생성
-        random_x = click_position[0] + random.randint(-10, 10)  # X축으로 ±10 픽셀
-        random_y = click_position[1] + random.randint(-10, 10)  # Y축으로 ±10 픽셀
+        random_x = click_position[0] + random.randint(-30, 30)  # X축으로 ±30 픽셀
+        random_y = click_position[1] + random.randint(-30, 30)  # Y축으로 ±30 픽셀
 
         # 현재 마우스 위치 확인
         mouse_x, mouse_y = pyautogui.position()
@@ -41,7 +43,7 @@ def run_macro(click_position, interval=0.2, stop_event=None):
         pyautogui.click(x=random_x, y=random_y)
 
         # 랜덤 딜레이 추가
-        random_delay = interval + random.uniform(-0.05, 0.05)
+        random_delay = interval + random.uniform(-0.01, 0.01)
         time.sleep(random_delay)
 
 # 매크로 시작 및 재설정 버튼을 띄우는 팝업창
@@ -49,6 +51,8 @@ def show_start_and_reset_buttons(callback_start, callback_reset):
     root = tk.Tk()
     root.title("매크로 설정")
     center_window(root, 300, 150)  # 중앙 배치
+
+    root.geometry("400x100") # 너비 400, 높이 200
 
     label = tk.Label(root, text="원하는 작업을 선택하세요.")
     label.pack(pady=10)
