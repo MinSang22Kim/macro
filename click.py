@@ -6,6 +6,8 @@ import random
 
 pyautogui.PAUSE = 0  # PyAutoGUI의 기본 딜레이 제거
 
+# 10분에 500번 클릭하는 매크로
+
 # 화면 중앙에 창 위치 계산
 def center_window(window, width, height):
     screen_width = window.winfo_screenwidth()
@@ -22,8 +24,8 @@ def select_click_position():
     print(f"선택된 좌표: {position}")
     return position
 
-# 선택된 위치를 반복적으로 클릭 (1초에 100번, 랜덤 위치 포함)
-def run_macro(click_position, interval=0.01, stop_event=None):
+# 선택된 위치를 반복적으로 클릭
+def run_macro(click_position, interval=0.002, stop_event=None):
     print("매크로 실행 중... 마우스를 화면 모서리로 이동하면 종료됩니다.")
     screen_width, screen_height = pyautogui.size()
 
@@ -43,7 +45,7 @@ def run_macro(click_position, interval=0.01, stop_event=None):
         pyautogui.click(x=random_x, y=random_y)
 
         # 랜덤 딜레이 추가
-        random_delay = interval + random.uniform(-0.01, 0.01)
+        random_delay = interval + random.uniform(-0.0005, 0.0005)
         time.sleep(random_delay)
 
 # 매크로 시작 및 재설정 버튼을 띄우는 팝업창
@@ -79,7 +81,7 @@ if __name__ == "__main__":
         # 매크로 실행 준비 (시작 및 재설정 버튼)
         def start_macro():
             print("매크로 시작 버튼 클릭됨.")
-            macro_thread = threading.Thread(target=run_macro, args=(click_position, 0.2, stop_event))
+            macro_thread = threading.Thread(target=run_macro, args=(click_position, 0.005, stop_event))
             macro_thread.start()
             macro_thread.join()
             print("매크로가 종료되었습니다.")
