@@ -6,9 +6,6 @@
 
 1. **click.py** : 특정 위치를 빠르게 반복 클릭하는 매크로 도구
 
-   <details>
-   <summary>click.py 설명</summary>
-
    ### 기능 설명
    - 초당 최대 50번 클릭
    - 랜덤 오프셋과 딜레이로 탐지 방지
@@ -32,4 +29,3 @@
    - `pyautogui`: 클릭 실행 및 위치 감지.
    - `tkinter`: GUI 제공 (시작/재설정 버튼 및 팝업).
    
-   </details>
